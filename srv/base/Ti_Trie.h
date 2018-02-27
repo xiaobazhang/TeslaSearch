@@ -37,15 +37,16 @@ class Ti_Trie {
 		const char *p = n;
 		trie_node *node = root;
 		while (*p) {
+			printf("%c", *p);
 			int32_t id = *p - 'a';
 			if (node->child[id] == NULL) {
-				node = create_node();
-				node->child[id] = node;
+				node->child[id] = create_node();
 			}
 			node = node->child[id];
 			node->count++;
 			p++;
 		}
+		printf("\n");
 		node->is_word = true;
 	}
 	int search_word(const char *w) {
@@ -58,6 +59,7 @@ class Ti_Trie {
 				return 0;
 			}
 		}
+		printf("%d\n", t->count);
 		return t->count;
 	}
  private:
