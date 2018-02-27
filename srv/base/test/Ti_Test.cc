@@ -2,11 +2,12 @@
  * Created by suli on 18/1/27.
  */
 
-#include "Ti_List.h"
-#include "Ti_Tree.h"
+#include "../Ti_List.h"
+#include "../Ti_Tree.h"
 #include <iostream>
 #include <vector>
-#include "Ti_Sort.h"
+#include "../Ti_Sort.h"
+#include "../Ti_Trie.h"
 
 using namespace TiAlloy;
 
@@ -59,15 +60,31 @@ void Sort_Test() {
 		tmp.push_back(t);
 	}
 	std::cout << std::endl;
-	Base::sort<int>(tmp, MERGE_SORT);
+	TiAlloy::sort<int>(tmp, MERGE_SORT);
 	for (int i = 0; i < tmp.size(); i++) {
 		std::cout << tmp[i] << ",";
 	}
 	std::cout << std::endl;
 }
 
+void Trie_Test() {
+	std::vector<std::string> t;
+	t.push_back("abcd");
+	t.push_back("cdfrqwer");
+	t.push_back("cdefsdfg");
+	Ti_Trie trie;
+	for (int i = 0; i < t.size(); i++) {
+		trie.insert_node(t[i].c_str());
+	}
+	if (trie.search_word("abcd")) {
+		std::cout << "abcd" << std::endl;
+	} else {
+		std::cout << "have no abcd!!" << std::endl;
+	}
+}
+
 int main(void) {
-	Sort_Test();
+	Trie_Test();
 	return 1;
 }
 

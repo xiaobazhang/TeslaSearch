@@ -15,11 +15,11 @@ enum {
 	HEADP_SORT
 };
 template<typename T>
-class sort_base {
+class Ti_Sort {
 	typedef std::vector <T> Data;
  public:
-	sort_base() {}
-	~sort_base() {}
+	Ti_Sort() {}
+	~Ti_Sort() {}
  public:
 	void quick_sort(std::vector <T> &v, int b, int e) {
 		if (b >= e) {
@@ -87,7 +87,7 @@ class sort_base {
 
 template<typename T>
 bool sort(std::vector <T> &v, int type = QUICK_SORT) {
-	sort_base<T> sort;
+	Ti_Sort<T> sort;
 	switch (type) {
 		case MERGE_SORT:
 			sort.merge_sort(v, 0, v.size());
