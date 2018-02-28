@@ -158,6 +158,7 @@ class Ti_HashMap {
 			}
 			t = t->next;
 		}
+		return true;
 	}
 	Value &find(const Key &k) {
 		int32_t index = hash(k) % capacity;

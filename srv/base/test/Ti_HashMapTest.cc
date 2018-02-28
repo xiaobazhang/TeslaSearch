@@ -18,6 +18,7 @@ void HashMap_Test() {
 	map.insert("ba", "90");
 	std::cout << map["hello"] << ":" << map["ba"] << std::endl;
 	map["hello"] = "432";
-	std::cout << map["hello"] << std::endl;
+	map.remove("ba");
+	std::cout << map["hello"] << map["ba"] << std::endl;
 }
 
