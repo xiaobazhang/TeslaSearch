@@ -83,10 +83,6 @@ void Trie_Test() {
 	}
 }
 
-int main(void) {
-	Trie_Test();
-	return 1;
-}
 
 
 
