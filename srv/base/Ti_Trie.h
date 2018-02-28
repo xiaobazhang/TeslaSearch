@@ -48,6 +48,7 @@ class Ti_Trie {
 		}
 		printf("\n");
 		node->is_word = true;
+		return true;
 	}
 	int search_word(const char *w) {
 		const char *p = w;

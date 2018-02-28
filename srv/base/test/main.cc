@@ -6,5 +6,6 @@
 
 int main(void) {
 	HashMap_Test();
+	Tree_Test();
 	return 1;
 }

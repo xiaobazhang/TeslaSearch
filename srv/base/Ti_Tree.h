@@ -7,6 +7,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <vector>
+#include <stdint.h>
 
 namespace TiAlloy {
 
@@ -36,12 +37,13 @@ struct tree_node {
 	tree_node *parent;
 };
 
-template<typename T>
+template<typename T, typename EqualFun>
 class BinaryTree {
 	typedef tree_node<T> Node;
  private:
 	Node *root;
 	size_t num;
+	EqualFun equal;
  public:
 	BinaryTree() : root(NULL), num(0) {
 	}
@@ -63,7 +65,7 @@ class BinaryTree {
 	bool insert(T &v) {
 		Node *t = root;
 		while (t) {
-			if (v > t->value) {
+			if (equal(v, t->value) > 0) {
 				if (t->right == NULL) {//找到位置
 					Node *tmp = new Node(v);
 					tmp->parent = t; //父节点赋值
@@ -72,7 +74,7 @@ class BinaryTree {
 					return true;
 				}
 				t = t->right;
-			} else if (v < t->value) {
+			} else if (equal(v, t->value) < 0) {
 				if (t->left == NULL) {
 					Node *tmp = new Node(v);
 					tmp->parent = t;
@@ -147,7 +149,7 @@ class BinaryTree {
 	}
 	bool remove(const T &v) {
 		Node *t = root;
-		remove_node(t, v);
+		return remove_node(t, v);
 	}
 	size_t hash(const unsigned char *str, int32_t len) {
 		const unsigned char *p = str;
@@ -201,6 +203,7 @@ class BinaryTree {
 				rang_order(r->right, n1, n2, v);
 			}
 		}
+		return true;
 	}
 	void pre_order(const Node *n, std::vector <T> &r) {
 		if (n) {
@@ -264,6 +267,12 @@ class BinaryTree {
 			remove_node(tmp->left, tmp->value);
 		}
 		return true;
+	}
+};
+class TreeEqual {
+ public:
+	int operator()(const int &a, const int &b) {
+		return (a - b);
 	}
 };
 

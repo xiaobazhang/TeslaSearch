@@ -4,15 +4,13 @@
 
 #include "../Ti_List.h"
 #include "../Ti_Tree.h"
-#include <iostream>
-#include <vector>
 #include "../Ti_Sort.h"
 #include "../Ti_Trie.h"
 
 using namespace TiAlloy;
 
 void Tree_Test() {
-	BinaryTree<int> tree;
+	BinaryTree<int, TreeEqual> tree;
 	std::vector<int> vec;
 	for (int i = 0; i < 10; i++) {
 		int tmp = rand() % (100);
