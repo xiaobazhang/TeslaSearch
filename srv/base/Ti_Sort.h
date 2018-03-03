@@ -9,12 +9,20 @@
 #include <vector>
 
 namespace TiAlloy {
+
+class Equal {
+ public:
+	int operator()(int a, int b) {
+		return a - b;
+	}
+};
+
 enum {
 	QUICK_SORT,
 	MERGE_SORT,
 	HEADP_SORT
 };
-template<typename T>
+template<typename T, typename Eq>
 class Ti_Sort {
 	typedef std::vector <T> Data;
  public:
@@ -29,11 +37,11 @@ class Ti_Sort {
 		int hight = e;
 		T key = v[low];
 		while (low < hight) {
-			while (low < hight && v[hight] >= key) {
+			while (low < hight && equal(v[hight], key) > 0) {
 				hight--;
 			}
 			v[low] = v[hight];
-			while (low < hight && v[low] <= key) {
+			while (low < hight && equal(v[low], key) < 0) {
 				low++;
 			}
 			v[hight] = v[low];
@@ -51,18 +59,49 @@ class Ti_Sort {
 			merge(v, b, mid, e);
 		}
 	}
-
-	void heap_sort(Data &v) {
-		//TODO
+	void heap_sort(Data &v, int len) {
+		for (int i = len / 2 - 1; i >= 0; i--) {
+			adjust_head(v, i, len);
+		}
+		for (int i = len - 1; i >= 1; i--) {
+			T temp = v[0];
+			v[0] = v[i];
+			v[i] = temp;
+			adjust_head(v, 0, i);
+		}
+		return;
 	}
  private:
+	Eq equal;
+	//堆的调整,首先对比节点和左节点的大小,进而对比右节点的大小,
+	// 得到最大或者最小,然后swap节点和最大或最小节点,递归完成调整
+	void adjust_head(Data &v, int idx, int len) {
+		int left = idx * 2 + 1;
+		int right = left + 1;
+		int largest = idx;
+
+		if (left < len && equal(v[left], v[idx]) > 0) {
+			largest = left;
+		}
+
+		if (right < len && equal(v[largest], v[right]) < 0) {
+			largest = right;
+		}
+
+		if (largest != idx) {
+			T temp = v[largest];   //较大的节点值将交换到其所在节点的父节点
+			v[largest] = v[idx];
+			v[idx] = temp;
+			adjust_head(v, largest, len); //递归遍历
+		}
+	}
 	void merge(Data &v, int low, int mid, int hight) {
 		Data tmp;
 		int l = low;
 		int h = mid + 1;
 		//数据
 		while (l <= mid && h <= hight) {
-			if (v[l] < v[h]) {
+			if (equal(v[l], v[h]) < 0) {
 				tmp.push_back(v[l]);
 				l++;
 			} else {
@@ -85,19 +124,21 @@ class Ti_Sort {
 	}
 };
 
-template<typename T>
+template<typename T, typename Eq>
 bool sort(std::vector <T> &v, int type = QUICK_SORT) {
-	Ti_Sort<T> sort;
+	Ti_Sort <T, Eq> sort;
 	switch (type) {
 		case MERGE_SORT:
 			sort.merge_sort(v, 0, v.size());
 			break;
 		case HEADP_SORT:
+			sort.heap_sort(v, v.size());
 			break;
 		default:
 			sort.quick_sort(v, 0, v.size());
 			break;
 	}
+	return true;
 }
 }
 

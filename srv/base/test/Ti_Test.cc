@@ -58,7 +58,7 @@ void Sort_Test() {
 		tmp.push_back(t);
 	}
 	std::cout << std::endl;
-	TiAlloy::sort<int>(tmp, MERGE_SORT);
+	TiAlloy::sort<int, Equal>(tmp, HEADP_SORT);
 	for (int i = 0; i < tmp.size(); i++) {
 		std::cout << tmp[i] << ",";
 	}
