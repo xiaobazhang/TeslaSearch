@@ -8,5 +8,6 @@ int main(void) {
 	Sort_Test();
 	HashMap_Test();
 	Tree_Test();
+	Trie_Test();
 	return 1;
 }

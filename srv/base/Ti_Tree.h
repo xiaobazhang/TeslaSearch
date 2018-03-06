@@ -233,7 +233,7 @@ class BinaryTree {
 		if (n->right == NULL) {//右子树为空,已经找到了最大
 			return n;
 		}
-		return find_max_left_tree(n->right);//递归寻找右子树
+		return find_max_left_tree(n->right);//递归寻找左子树
 	}
 	bool remove_node(Node *r, const T &v) {
 		Node *t = find(r, v);//查找到删除位置
@@ -255,7 +255,7 @@ class BinaryTree {
 			delete tmp;
 			num--;
 			return true;
-		} else if (t->right == NULL) {
+		} else if (t->right == NULL) {//左节点存在
 			Node *tmp = t;
 			t = t->left;
 			delete tmp;
