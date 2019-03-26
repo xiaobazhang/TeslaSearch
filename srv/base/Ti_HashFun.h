@@ -11,31 +11,31 @@
 using namespace std;
 namespace TiAlloy {
 static u_int32_t add_hash(void *key, int32_t len) {
-	u_char *p = static_cast<u_char *>(key);
-	u_int32_t h = 0;
-	for (int32_t i = 0; i < len; i++) {
-		h += p[i];
-	}
-	return h;
+  u_char *p = static_cast<u_char *>(key);
+  u_int32_t h = 0;
+  for (int32_t i = 0; i < len; i++) {
+	h += p[i];
+  }
+  return h;
 }
 static u_int32_t xor_hash(void *key, int32_t len) {
-	u_char *p = static_cast<u_char *>(key);
-	u_int32_t h = 0;
-	for (int32_t i = 0; i < len; i++) {
-		h ^= p[i];
-	}
+  u_char *p = static_cast<u_char *>(key);
+  u_int32_t h = 0;
+  for (int32_t i = 0; i < len; i++) {
+	h ^= p[i];
+  }
 }
 class HashFun {
  public:
-	u_int32_t operator()(const string &key) {
-		return TiAlloy::add_hash((void *) key.c_str(), (int32_t) key.size());
-	}
+  u_int32_t operator()(const string &key) {
+	return TiAlloy::add_hash((void *) key.c_str(), (int32_t) key.size());
+  }
 };
 class HashEqual {
  public:
-	bool operator()(const string &a, const string &b) {
-		return (a == b);
-	}
+  bool operator()(const string &a, const string &b) {
+	return (a == b);
+  }
 };
 
 }

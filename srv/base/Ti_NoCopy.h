@@ -10,15 +10,15 @@
 namespace TiAlloy {
 class Ti_NoCopy {
  protected:
-	Ti_NoCopy() {
-	}
-	virtual ~Ti_NoCopy() {
-	}
+  Ti_NoCopy() {
+  }
+  virtual ~Ti_NoCopy() {
+  }
  private:
-	Ti_NoCopy(const Ti_NoCopy &copy) {
-	}
-	const Ti_NoCopy &operator=(const Ti_NoCopy &copy) {
-	}
+  Ti_NoCopy(const Ti_NoCopy &copy) {
+  }
+  const Ti_NoCopy &operator=(const Ti_NoCopy &copy) {
+  }
 };
 
 }

@@ -12,31 +12,31 @@ namespace TiAlloy {
 template<typename T>
 class Ti_Singleton : public Ti_NoCopy {
  public:
-	Ti_Singleton() : instance_(NULL), exit_relese_(false) {
+  Ti_Singleton() : instance_(NULL), exit_relese_(false) {
+  }
+  ~Ti_Singleton() {
+	if (instance_) {
+	  delete instance_;
 	}
-	~Ti_Singleton() {
-		if (instance_) {
-			delete instance_;
-		}
+  }
+  T *Get() {
+	if (instance_ == NULL) {
+	  Ti_ScopLock scopLock(SPIN_LOCK);
+	  if (instance_ == NULL) {
+		instance_ = new T();
+	  }
 	}
-	T *Get() {
-		if (instance_ == NULL) {
-			Ti_ScopLock scopLock(SPIN_LOCK);
-			if (instance_ == NULL) {
-				instance_ = new T();
-			}
-		}
-		return instance_;
-	}
-	T &operator*() {
-		return *Get();
-	}
-	T *operator->() {
-		return Get();
-	}
+	return instance_;
+  }
+  T &operator*() {
+	return *Get();
+  }
+  T *operator->() {
+	return Get();
+  }
  private:
-	T *volatile instance_;
-	bool exit_relese_;//退出释放
+  T *volatile instance_;
+  bool exit_relese_;//退出释放
 };
 }
 

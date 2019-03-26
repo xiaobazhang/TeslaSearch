@@ -12,5 +12,6 @@ void List_Test();
 void Sort_Test();
 void Trie_Test();
 void HashMap_Test();
+void String_Test();
 
 #endif //TIALLOY_TI_TEST_H
